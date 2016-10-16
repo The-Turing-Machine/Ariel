@@ -25,8 +25,7 @@ def index():
 		# data = json.loads(request.data)
 		data = request.json
 		print data
-		print data.decode('utf-8')
-		return str(data)
+		
 
 
 
@@ -124,7 +123,7 @@ if __name__ == '__main__' :
 
 	# noun("Hey allo so what do you have for my falling hair.")
 	# noun("Hey allo my skin  is hair getting dry")
-	# noun("Which soap are good to use")
+	# noun("Which soaps are good to use ?")
 	# noun("Hey allo How to keep my teeth shiny")
-	# noun("i have skin sweating problems")
-	noun("ok so ariel i am having some Facial problems")
+	noun("i have skin sweating problems")
+	# noun("ok so ariel i am having some Facial problems")
