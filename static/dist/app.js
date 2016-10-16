@@ -57,7 +57,7 @@ var Ariel = function () {
 
       var listNode = document.querySelector('.screen__container--messages');
 
-      msg = msg["data"][1];
+      msg = msg["data"][0];
 
       for (var i = 0; i < 4; ++i) {
         var li = document.createElement('LI'),
