@@ -9,32 +9,18 @@ var Ariel = function () {
     _classCallCheck(this, Ariel);
 
     this.setListeners();
-    this.getInputValue();
   }
 
   _createClass(Ariel, [{
-    key: 'getInputValue',
-    value: function getInputValue() {
-      var input = document.querySelector('.message__input');
-      var selfie = this;
-      window.addEventListener('keydown', function (event) {
-        event.preventDefault();
-
-        if (event.keyCode === 13 || event.which === 13) {
-          selfie.sendMessage(input.value);
-        }
-      });
-    }
-  }, {
     key: 'setListeners',
     value: function setListeners() {
-      var _this = this;
-
       var screen = document.querySelector('.screen');
       var message = document.querySelector('.message');
       var input = document.querySelector('.message__input');
       var microphone = document.querySelector('.message__speech');
       var container = document.querySelector('.screen__container--listen');
+
+      var selfie = this;
 
       window.addEventListener('touchstart', function (event) {
         event.preventDefault();
@@ -42,7 +28,7 @@ var Ariel = function () {
         if (event.target === microphone) {
           screen.style.cssText = 'background: linear-gradient(#1EC7AC, #3AB8C8)';
           container.style.cssText = 'display: table';
-          _this.getSpeech();
+          selfie.getSpeech();
         }
       });
 
@@ -52,6 +38,15 @@ var Ariel = function () {
         if (event.target === microphone) {
           screen.style.cssText = 'background: #EBEDF1';
           container.style.cssText = 'display: none';
+        }
+      });
+
+      window.addEventListener('keyup', function (event) {
+        event.preventDefault();
+
+        if (event.keyCode === 13 || event.which === 13) {
+          selfie.sendMessage(input.value);
+          input.value = '';
         }
       });
     }
@@ -68,6 +63,7 @@ var Ariel = function () {
       var recognition = new webkitSpeechRecognition(),
           selfie = this;
       recognition.onresult = function (event) {
+        selfie.sendMessage(event.results[0][0]['transcript']);
         selfie.sendSpeech(event.results[0][0]['transcript']);
       };
       recognition.start();
@@ -89,9 +85,7 @@ var Ariel = function () {
       console.log(json);
 
       var xhr = new XMLHttpRequest(),
-          // url = 'https://10.1.1.207:5000/';
-
-          url = 'http://127.0.0.1:5000/';
+          url = 'https://127.0.0.1:5000/';
 
       xhr.open('POST', url, true);
 
