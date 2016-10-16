@@ -40,7 +40,9 @@ def scrape(url, tag):
 
     tree = html.fromstring(r.text)
     products = tree.xpath('//p[@class="product-name"]')
-    for pd in products:
+    imgs = tree.xpath('//img[contains(@class,"product-image")]//@src')
+
+    for i, pd in enumerate(products):
         p = pd.xpath('.//text()')[1]
         link = pd.xpath('.//@href')[0]
         result = re.sub(r"\\t|\\n", '', repr(p))
@@ -48,10 +50,10 @@ def scrape(url, tag):
             print 'Found [%s][%s] in %s' % (result, link, tag)
             a += 1
             if tag in json_dict:
-                json_dict[tag].append((result, link))
+                json_dict[tag].append((result, link, imgs[i]))
             else:
                 json_dict[tag] = list()
-                json_dict[tag].append((result, link))
+                json_dict[tag].append((result, link, imgs[i]))
 
 r = session.get(url)
 tree = html.fromstring(r.text)

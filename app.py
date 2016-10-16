@@ -1,5 +1,6 @@
 from flask import Flask
-from flask import render_template, request, flash, url_for, redirect, session
+from flask import render_template, request, flash, url_for, redirect, session, jsonify
+
 import os
 from flask_cors import CORS, cross_origin
 import json
@@ -16,6 +17,8 @@ snowball_stemmer = SnowballStemmer("english")
 app = Flask(__name__)
 CORS(app)
 
+final_data = []
+data_to_process = []
 api_keys = ['d687a4bbd8b4a787b2f8c841db313763', '806706827f427b6a77ff242b936ae973',
             '9667ebccf1c18f24c76263a34352ca07', 'ef933fa89506062e98ba214165fdad5f', 'aba132076d484dcf8d0a69a299561c8e']
 
@@ -24,15 +27,14 @@ app.secret_key = "secret"
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    print 'root'
     if request.method == 'POST':
         # data = json.loads(request.data)
         data = request.json
         print data
-        # print data.decode('utf-8')
-        return str(data)
-    else:
-        return 'home'
+        global data_to_process
+        data_to_process = data['response']
+        noun(data_to_process)
+        return jsonify({"data": final_data})
 
 
 @app.route('/index')
