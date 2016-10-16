@@ -46,7 +46,7 @@ def read_json(words):
 
         keys = data.keys()
         print keys
-        if len(words) == 0:
+        if words == [0]:
             print "Empty"
 
         global final_data
@@ -88,8 +88,8 @@ def read_json(words):
                         # print i
                         # print k
                         final_data.append(data[i])
-            print final_data
-        if len(final_data) == 0:
+            # print final_data
+        if final_data == []:
             final_data = ["sry didn't understand "]
 
 

@@ -28,16 +28,7 @@ class Ariel {
       	screen.style.cssText = 'background: #EBEDF1';
         container.style.cssText = 'display: none';
       }
-    });
-
-    window.addEventListener('keyup', function(event){
-  		event.preventDefault();
-
-  		if(event.keyCode === 13 || event.which === 13) {
-  			selfie.sendMessage(input.value);
-  			input.value = '';
-  		}
-  	});
+    
   }
 
   getSpeech() {
