@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
 * {
 	box-sizing: border-box;
 }
@@ -7,13 +9,38 @@ body, html {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+}
+
+input:focus{
+    outline: none;
+}
+
+.bar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 2%;
+	background: linear-gradient(to left, #1EC7AC, #3AB8C8);
+	z-index: 99;
+}
+
+.heading {
+	position: fixed;
+	top: 2%;
+	z-index: 99;
+	margin-left: 5%;
+	font-size: 25px;
+	color: #111;
+	opacity: 0.1;
+	font-weight: bold;
 }
 
 .screen {
 	width: 100%;
-	height: 80%;
+	height: 85%;
 	position: relative;
-	background: #eee;
+ 	background: #EBEDF1;
 }
 
 .screen__container {
@@ -29,6 +56,7 @@ body, html {
   width: 100%;
   height: 120px;
   position: absolute;
+  z-index: 99999;
 }
 
 .screen__container--listen span {
@@ -41,7 +69,7 @@ body, html {
   top: 0;
   bottom: 0;
   transition: all 0.3s;
-  background: #333;
+  background: linear-gradient(to top, #673AB7, #283593);
 }
 
 .screen__container--listen span:nth-child(2) {
@@ -155,22 +183,40 @@ body, html {
 }
 
 .message {
-	height: 20%;
+	height: 15%;
 	width: 100%;
-	background: #e2e2e2;
-	position: relative;
+	background: #ffffff;
+	position: fixed;
+	bottom: 0;
 }
 
 .message__input {
 	margin: 4%;
-	margin-top: 9%;
-	width: 70%;
+	margin-top: 6.5%;
+	width: 62%;
+	margin-right: 8%;
+	margin-left: 5%;
 	height: 50%;
+	background: transparent;
+	border: none;
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+::-webkit-input-placeholder {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .message__speech {
 	background: #fff;
-	width: 70px;
-	height: 70px;
+	width: 55px;
+	height: 55px;
+	margin-bottom: 10%;
+	color: transparent;
+	border: 1px solid #efefef;
 	border-radius: 50%;
+	background: url('microphone.svg');
+	background-size: 60% 60%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
 }

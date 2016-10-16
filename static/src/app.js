@@ -3,6 +3,9 @@ class Ariel {
     this.setListeners();
   }
   setListeners() {
+  	const screen = document.querySelector('.screen');
+    const message = document.querySelector('.message');
+    const input = document.querySelector('.message__input');
     const microphone = document.querySelector('.message__speech');
     const container = document.querySelector('.screen__container--listen');
 
@@ -10,6 +13,7 @@ class Ariel {
       event.preventDefault();
 
       if (event.target === microphone) {
+      	screen.style.cssText = 'background: linear-gradient(#1EC7AC, #3AB8C8)';
         container.style.cssText = 'display: table';
         this.getSpeech();
       }
@@ -19,6 +23,7 @@ class Ariel {
       event.preventDefault();
 
       if (event.target === microphone) {
+      	screen.style.cssText = 'background: #EBEDF1';
         container.style.cssText = 'display: none';
       }
     });
