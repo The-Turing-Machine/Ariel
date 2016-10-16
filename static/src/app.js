@@ -1,6 +1,18 @@
 class Ariel {
   constructor() {
     this.setListeners();
+    this.getInputValue();
+  }
+  getInputValue() {
+  	const input = document.querySelector('.message__input');
+  	let selfie = this;
+  	window.addEventListener('keydown', function(event){
+  		event.preventDefault();
+
+  		if(event.keyCode === 13 || event.which === 13) {
+  			selfie.sendMessage(input.value);
+  		}
+  	});
   }
   setListeners() {
   	const screen = document.querySelector('.screen');
@@ -28,6 +40,7 @@ class Ariel {
       }
     });
   }
+
   getSpeech() {
     const speechBubbles = document.querySelectorAll('.screen__container--listen > span');
 
@@ -44,8 +57,16 @@ class Ariel {
     recognition.start();
 
   }
+  sendMessage(msg) {
+  	const listNode = document.querySelector('.screen__container--messages');
+  	const li = document.createElement("li");
+
+  	li.appendChild(document.createTextNode(msg));
+
+  	listNode.appendChild(li);
+  }
   sendSpeech(msg) {
-    const json = JSON.stringify('{ "response":' + msg + '}');
+    const json = JSON.stringify({ "response":  msg });
     console.log(json);
 
     let xhr = new XMLHttpRequest(),
@@ -53,13 +74,15 @@ class Ariel {
 
     xhr.open('POST', url, true);
 
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         console.log(xhr.responseText);
       }
     }
 
-    xhr.send();
+    xhr.send(json);
   }
 }
 

@@ -9,9 +9,23 @@ var Ariel = function () {
     _classCallCheck(this, Ariel);
 
     this.setListeners();
+    this.getInputValue();
   }
 
   _createClass(Ariel, [{
+    key: 'getInputValue',
+    value: function getInputValue() {
+      var input = document.querySelector('.message__input');
+      var selfie = this;
+      window.addEventListener('keydown', function (event) {
+        event.preventDefault();
+
+        if (event.keyCode === 13 || event.which === 13) {
+          selfie.sendMessage(input.value);
+        }
+      });
+    }
+  }, {
     key: 'setListeners',
     value: function setListeners() {
       var _this = this;
@@ -59,9 +73,19 @@ var Ariel = function () {
       recognition.start();
     }
   }, {
+    key: 'sendMessage',
+    value: function sendMessage(msg) {
+      var listNode = document.querySelector('.screen__container--messages');
+      var li = document.createElement("li");
+
+      li.appendChild(document.createTextNode(msg));
+
+      listNode.appendChild(li);
+    }
+  }, {
     key: 'sendSpeech',
     value: function sendSpeech(msg) {
-      var json = JSON.stringify('{ "response":' + msg + '}');
+      var json = JSON.stringify({ "response": msg });
       console.log(json);
 
       var xhr = new XMLHttpRequest(),
@@ -70,13 +94,15 @@ var Ariel = function () {
 
       xhr.open('POST', url, true);
 
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           console.log(xhr.responseText);
         }
       };
 
-      xhr.send();
+      xhr.send(json);
     }
   }]);
 
