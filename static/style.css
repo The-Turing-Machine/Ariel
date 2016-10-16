@@ -1,0 +1,176 @@
+* {
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.screen {
+	width: 100%;
+	height: 80%;
+	position: relative;
+	background: #eee;
+}
+
+.screen__container {
+	position: absolute;
+	height: 90%;
+	width: 90%;
+	margin: 5%;
+}
+
+.screen__container--listen {
+  display: none;
+  margin: 40% 4%;
+  width: 100%;
+  height: 120px;
+  position: absolute;
+}
+
+.screen__container--listen span {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  transition: all 0.3s;
+  background: #333;
+}
+
+.screen__container--listen span:nth-child(2) {
+  left: 100px;
+}
+.screen__container--listen span:nth-child(3) {
+  left: 200px;
+}
+.screen__container--listen span:nth-child(4) {
+  left: 300px;
+}
+@keyframes sound-1 {
+  0% {
+    height: 280px;
+    border-radius: 30px;
+  }
+  10% {
+    height: 190px;
+    border-radius: 30px;
+  }
+  20% {
+    height: 260px;
+    border-radius: 30px;
+  }
+  25% {
+    height: 180px;
+    border-radius: 30px;
+  }
+  30% {
+    height: 280px;
+    border-radius: 30px;
+  }
+  40% {
+    height: 190px;
+    border-radius: 30px;
+  }
+  50% {
+    height: 160px;
+    border-radius: 30px;
+  }
+  60% {
+    height: 130px;
+    border-radius: 30px;
+  }
+  70% {
+    height: 100px;
+    border-radius: 30px;
+  }
+  80% {
+    height: 130px;
+    border-radius: 30px;
+  }
+  85% {
+    height: 100px;
+    border-radius: 30px;
+  }
+  90% {
+    height: 130px;
+    border-radius: 30px;
+  }
+  95% {
+    height: 100px;
+    border-radius: 30px;
+  }
+  100% {
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+@keyframes sound-2 {
+  0% {
+    height: 180px;
+    border-radius: 30px;
+  }
+  20% {
+    height: 120px;
+    border-radius: 30px;
+  }
+  30% {
+    height: 180px;
+    border-radius: 30px;
+  }
+  40% {
+    height: 120px;
+    border-radius: 30px;
+  }
+  50% {
+    height: 110px;
+    border-radius: 30px;
+  }
+  60% {
+    height: 90px;
+    border-radius: 30px;
+  }
+  70% {
+    height: 70px;
+    border-radius: 30px;
+  }
+  80% {
+    height: 90px;
+    border-radius: 30px;
+  }
+  90% {
+    height: 70px;
+    border-radius: 30px;
+  }
+  100% {
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+.message {
+	height: 20%;
+	width: 100%;
+	background: #e2e2e2;
+	position: relative;
+}
+
+.message__input {
+	margin: 4%;
+	margin-top: 9%;
+	width: 70%;
+	height: 50%;
+}
+
+.message__speech {
+	background: #fff;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+}
