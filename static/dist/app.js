@@ -56,6 +56,32 @@ var Ariel = function () {
       });
     }
   }, {
+    key: 'sendResponse',
+    value: function sendResponse(msg) {
+      msg = JSON.parse(msg);
+
+      var listNode = document.querySelector('.screen__container--messages');
+
+      msg = msg["data"][0];
+
+      for (var i = 0; i < 4; ++i) {
+        var li = document.createElement('LI'),
+            img = document.createElement('IMG'),
+            a = document.createElement('A'),
+            p = document.createElement('P');
+
+        p.innerHTML = msg[i][0];
+        a.href = msg[i][1];
+        img.src = msg[i][2];
+
+        li.appendChild(img);
+        li.appendChild(h3);
+        li.appendChild(p);
+
+        ul.appendChild(li);
+      }
+    }
+  }, {
     key: 'getSpeech',
     value: function getSpeech() {
       var speechBubbles = document.querySelectorAll('.screen__container--listen > span');
@@ -89,8 +115,9 @@ var Ariel = function () {
       console.log(json);
 
       var xhr = new XMLHttpRequest(),
-          // url = 'https://10.1.1.142:5000/';
-          url = 'http://127.0.0.1:5000/';
+          url = 'https://127.0.0.1:5000/',
+          selfie = this;
+
 
       xhr.open('POST', url, true);
 
@@ -98,7 +125,7 @@ var Ariel = function () {
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-          console.log(xhr.responseText);
+          selfie.sendResponse(xhr.responseText);
         }
       };
 
