@@ -70,7 +70,7 @@ class Ariel {
     console.log(json);
 
     let xhr = new XMLHttpRequest(),
-      url = 'https://10.1.1.142:5000/';
+      	url = 'https://127.0.0.1:5000/';
 
     xhr.open('POST', url, true);
 
