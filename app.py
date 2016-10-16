@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template,request,flash,url_for,redirect,session
+from flask import render_template,request,flash,url_for,redirect,session,jsonify
 import os
 from flask_cors import CORS, cross_origin
 import json
@@ -15,7 +15,7 @@ snowball_stemmer = SnowballStemmer("english")
 
 app = Flask(__name__)
 CORS(app)
-
+final_data = []
 api_keys = ['d687a4bbd8b4a787b2f8c841db313763','806706827f427b6a77ff242b936ae973','9667ebccf1c18f24c76263a34352ca07','ef933fa89506062e98ba214165fdad5f','aba132076d484dcf8d0a69a299561c8e']
 
 app.secret_key = "secret"
@@ -25,7 +25,9 @@ def index():
 		# data = json.loads(request.data)
 		data = request.json
 		print data
-		
+		data_to_process = data['response']
+        noun(data_to_process)
+        return jsonify({"data":final_data})
 
 
 
@@ -39,7 +41,7 @@ def read_json(words):
 		if len(words)==0:
 			print "Empty"
 
-		final_data = []
+
 		for j in words:
 			val = random.randint(0,4)
 			print api_keys[val]
@@ -125,5 +127,5 @@ if __name__ == '__main__' :
 	# noun("Hey allo my skin  is hair getting dry")
 	# noun("Which soaps are good to use ?")
 	# noun("Hey allo How to keep my teeth shiny")
-	noun("i have skin sweating problems")
+	# noun("i have skin sweating problems")
 	# noun("ok so ariel i am having some Facial problems")
