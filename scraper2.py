@@ -39,17 +39,19 @@ def scrape(url, tag):
         print 'ERROR - ', str(e)
 
     tree = html.fromstring(r.text)
-    products = tree.xpath('//p[@class="product-name"]//text()')
-    for p in products:
+    products = tree.xpath('//p[@class="product-name"]')
+    for pd in products:
+        p = pd.xpath('.//text()')[1]
+        link = pd.xpath('.//@href')[0]
         result = re.sub(r"\\t|\\n", '', repr(p))
-        if result != "''":
-            print 'Found [%s] in %s' % (result, tag)
+        if result != '':
+            print 'Found [%s][%s] in %s' % (result, link, tag)
             a += 1
             if tag in json_dict:
-                json_dict[tag].append(result)
+                json_dict[tag].append((result, link))
             else:
                 json_dict[tag] = list()
-                json_dict[tag].append(result)
+                json_dict[tag].append((result, link))
 
 r = session.get(url)
 tree = html.fromstring(r.text)
