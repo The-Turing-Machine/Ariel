@@ -1,18 +1,6 @@
 class Ariel {
   constructor() {
     this.setListeners();
-    this.getInputValue();
-  }
-  getInputValue() {
-  	const input = document.querySelector('.message__input');
-  	let selfie = this;
-  	window.addEventListener('keydown', function(event){
-  		event.preventDefault();
-
-  		if(event.keyCode === 13 || event.which === 13) {
-  			selfie.sendMessage(input.value);
-  		}
-  	});
   }
   setListeners() {
   	const screen = document.querySelector('.screen');
@@ -21,13 +9,15 @@ class Ariel {
     const microphone = document.querySelector('.message__speech');
     const container = document.querySelector('.screen__container--listen');
 
+    let selfie = this;
+
     window.addEventListener('touchstart', (event) => {
       event.preventDefault();
 
       if (event.target === microphone) {
       	screen.style.cssText = 'background: linear-gradient(#1EC7AC, #3AB8C8)';
         container.style.cssText = 'display: table';
-        this.getSpeech();
+        selfie.getSpeech();
       }
     });
 
@@ -39,6 +29,15 @@ class Ariel {
         container.style.cssText = 'display: none';
       }
     });
+
+    window.addEventListener('keyup', function(event){
+  		event.preventDefault();
+
+  		if(event.keyCode === 13 || event.which === 13) {
+  			selfie.sendMessage(input.value);
+  			input.value = '';
+  		}
+  	});
   }
 
   getSpeech() {
@@ -52,6 +51,7 @@ class Ariel {
     let recognition = new webkitSpeechRecognition(),
     		selfie = this;
     recognition.onresult = function(event) {
+    	selfie.sendMessage(event.results[0][0]['transcript']);
       selfie.sendSpeech(event.results[0][0]['transcript']);
     }
     recognition.start();

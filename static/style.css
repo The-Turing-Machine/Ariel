@@ -16,6 +16,10 @@ input:focus{
     outline: none;
 }
 
+li {
+	list-style: none;
+}
+
 .bar {
 	position: fixed;
 	top: 0;
@@ -219,4 +223,23 @@ input:focus{
 	background-size: 60% 60%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
+}
+
+.screen__container--messages li {
+	height: auto;
+	width: 70%;
+	padding: 5%;
+	color: #333;
+	margin: 20px;
+	letter-spacing: 0.6px;
+}
+
+.screen__container--messages li:nth-child(odd) {
+	background: #ffffff;
+	margin-left: 30%;
+}
+
+.screen__container--messages li:nth-child(even) {
+	border: 1px solid #78909C;
+	margin-left: -10%;
 }
