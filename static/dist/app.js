@@ -89,8 +89,9 @@ var Ariel = function () {
       console.log(json);
 
       var xhr = new XMLHttpRequest(),
-          url = 'https://10.1.1.207:5000/';
-          // url = 'http://127.0.0.1:5000/';
+          // url = 'https://10.1.1.207:5000/';
+
+          url = 'http://127.0.0.1:5000/';
 
       xhr.open('POST', url, true);
 
