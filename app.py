@@ -10,6 +10,7 @@ import speech_to_text
 import text_to_speech
 import requests
 from nltk.stem import SnowballStemmer
+from nltk.corpus import stopwords
 snowball_stemmer = SnowballStemmer("english")
 
 app = Flask(__name__)
@@ -66,8 +67,8 @@ def read_json(words):
 				for i in keys:
 					# print i
 					if k.lower() in i.lower():
-						print i
-						print k
+						# print i
+						# print k
 						final_data.append(data[i])
 			print final_data
 		if len(final_data) == 0:
@@ -77,10 +78,15 @@ def read_json(words):
 def noun(answer):
 	# if "everything" in answer.lower():
 	#     pass
-	stemmed = snowball_stemmer.stem(answer)
-	print stemmed
+	stop_words = set(stopwords.words('english'))
 	text = nltk.word_tokenize(answer)
-	tags =  nltk.pos_tag(text)
+
+	filtered_sentence = [w for w in text if not w in stop_words]
+	print filtered_sentence
+	# stemmed = snowball_stemmer.stem(answer)
+	# print stemmed
+
+	tags =  nltk.pos_tag(filtered_sentence)
 
 	words =  [[word] for word, tag in tags if tag in ('NN','NNP')]
 	print words
@@ -120,4 +126,5 @@ if __name__ == '__main__' :
 	# noun("Hey allo my skin  is hair getting dry")
 	# noun("Which soap are good to use")
 	# noun("Hey allo How to keep my teeth shiny")
-	noun("i have skin sweating problems")
+	# noun("i have skin sweating problems")
+	noun("ok so ariel i am having some Facial problems")
