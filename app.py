@@ -27,10 +27,11 @@ def home():
     if request.method == 'POST':
         # data = json.loads(request.data)
         data = request.json
-        print data
+        # print data
         global data_to_process
         data_to_process = data['response']
         noun(data_to_process)
+        print final_data,"final"
         return jsonify({"data":final_data})
 
 @app.route('/index')
@@ -48,40 +49,48 @@ def read_json(words):
         if len(words) == 0:
             print "Empty"
 
-        final_data = []
+        global final_data
+        result = []
         for j in words:
             val = random.randint(0, 4)
             print api_keys[val]
             new_url = "http://words.bighugelabs.com/api/2/" + \
                 str(api_keys[val]) + "/" + j[0] + "/json"
-            c = requests.get(new_url)
-            print c.status_code
+            try:
 
-            if c.status_code == 200:
+                c = requests.get(new_url)
+                print c.status_code
 
-                result = c.json()
-                # print result
-                # print result['noun']['syn']
+                if c.status_code == 200:
 
-                try:
-                    result = result['noun']['syn']
-                    # print result+"-----------"
-                    result = result + j
-                    print result
-                except:
-                    result = j[0]
-                    print list(result)
+                    r = c.json()
+                    # print result
+                    # print result['noun']['syn']
+
+                    try:
+                        result = r['noun']['syn']
+                        # print result+"-----------"
+                        result = result + j
+                        print result
+                    except:
+                        result = j[0]
+                        print list(result)
+                else:
+                    print "wrong status"
+            except:
+                result = j
+
             for k in result:
-                # print k
+                # print k,"k"
                 for i in keys:
-                    # print i
+                    # print i,"i"
                     if k.lower() in i.lower():
                         # print i
                         # print k
                         final_data.append(data[i])
             print final_data
         if len(final_data) == 0:
-            print "sry didn't understand "
+            final_data = ["sry didn't understand "]
 
 
 def noun(answer):
@@ -97,7 +106,7 @@ def noun(answer):
 
     tags = nltk.pos_tag(filtered_sentence)
 
-    words = [[word] for word, tag in tags if tag in ('NN', 'NNP')]
+    words = [[word] for word, tag in tags if tag in ('NN', 'NNP','NNS')]
     print words
     read_json(words)
 
@@ -119,6 +128,7 @@ def noun(answer):
 
 
 if __name__ == '__main__':
+    noun("show something for hair falling")
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # app.run(debug=True)
